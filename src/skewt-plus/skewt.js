@@ -653,76 +653,6 @@ export default function SkewT(div, { isTouchDevice, gradient = 45, topp = 50, pa
 				.attr('d', parctrajFx)
 				.attr('transform', `translate(${xOffset},0)`);
 		});
-		// for (let p in parcLines) {
-		// 	if (dataObj.lines[p]) dataObj.lines[p].remove();
-
-		// 	let line = [],
-		// 		press;
-		// 	switch (p) {
-		// 		case 'parcel':
-		// 			if (pt.dry) line.push(pt.dry);
-		// 			if (pt.moist) line.push(pt.moist);
-		// 			break;
-		// 		case 'TCON':
-		// 			let t = pt.TCON;
-		// 			line =
-		// 				t !== void 0
-		// 					? [
-		// 							[
-		// 								[t, basep],
-		// 								[t, topp],
-		// 							],
-		// 					  ]
-		// 					: [];
-		// 			break;
-		// 		case 'LCL':
-		// 			if (pt.isohumeToDry) line.push(pt.isohumeToDry);
-		// 			break;
-		// 		case 'CCL':
-		// 			if (pt.isohumeToTemp) line.push(pt.isohumeToTemp);
-		// 			if (pt.moistFromCCL) line.push(pt.moistFromCCL);
-		// 			break;
-		// 		case 'THRM top':
-		// 			press = pt.pThermalTop;
-		// 			if (press)
-		// 				line = [
-		// 					[
-		// 						[0, press],
-		// 						[400, press],
-		// 					],
-		// 				];
-		// 			break;
-		// 		case 'CLD top':
-		// 			press = pt.pCloudTop;
-		// 			if (press)
-		// 				line = [
-		// 					[
-		// 						[0, press],
-		// 						[400, press],
-		// 					],
-		// 				];
-		// 			break;
-		// 		default:
-		// 			throw new Error('');
-		// 	}
-
-		// 	if (line)
-		// 		parcLines[p] = line.map((e) =>
-		// 			e.map((ee) => {
-		// 				return { t: ee[0] - K0, p: ee[1] };
-		// 			})
-		// 		);
-
-		// 	dataObj.lines[p] = skewtgroup
-		// 		.selectAll(p)
-		// 		.data(parcLines[p])
-		// 		.enter()
-		// 		.append('path')
-		// 		.attr('class', `${p == 'parcel' ? 'parcel' : 'cond-level'} ${selectedSkewt && data == selectedSkewt.data && (p == 'parcel' || values[p].hi) ? 'highlight-line' : ''}`)
-		// 		.attr('clip-path', 'url(#clipper)')
-		// 		.attr('d', parctrajFx)
-		// 		.attr('transform', `translate(${xOffset},0)`);
-		// }
 
 		//update values
 		for (let p in values) {
@@ -771,6 +701,7 @@ export default function SkewT(div, { isTouchDevice, gradient = 45, topp = 50, pa
 			dataAr = [];
 			[1, 2].forEach((c) => {
 				let ctx = _this['cloudRef' + c].getContext('2d');
+				// console.log(ctx);
 				ctx.clearRect(0, 0, 10, 200);
 			});
 		}
@@ -857,7 +788,8 @@ export default function SkewT(div, { isTouchDevice, gradient = 45, topp = 50, pa
 				.y(function (d, i) {
 					return y(d.press);
 				});
-			dataObj.lines.tempdewLine = skewtgroup
+			// dataObj.lines.tempdewLine = skewtgroup
+			const tempdewLine = skewtgroup
 				.selectAll('tempdewlines')
 				.data(skewtlines)
 				.enter()
@@ -868,6 +800,7 @@ export default function SkewT(div, { isTouchDevice, gradient = 45, topp = 50, pa
 				.on('click', function (e) {
 					console.log(e);
 				});
+			dataObj.lines = { tempdewLine };
 
 			drawParcelTraj(dataObj);
 		}
@@ -1008,57 +941,7 @@ export default function SkewT(div, { isTouchDevice, gradient = 45, topp = 50, pa
 			.attr('max', r.max)
 			.attr('step', r.step)
 			.attr('value', p === 'gradient' ? 90 - r.value : r.value)
-			.attr('class', 'skewt-ranges')
-			.on('click', (e) => console.log(e));
-		// .on('input', (a, b, c) => {
-		// 	_this.hideTooltips();
-		// 	r.value = +c[0].value;
-
-		// 	if (p == 'gradient') {
-		// 		gradient = r.value = 90 - r.value;
-		// 		showErlFor2Sec(0, 0, r.input);
-		// 	}
-		// 	if (p == 'topp') {
-		// 		showErlFor2Sec(0, 0, r.input);
-		// 		let pph = y(basep) - y(topp);
-		// 		topp = r.value;
-		// 		let ph = y(basep) - y(topp);
-		// 		pIncrement = topp > 500 ? -25 : -50;
-		// 		if (adjustGradient) {
-		// 			ranges.gradient.value = gradient = Math.atan((Math.tan(gradient * deg2rad) * pph) / ph) / deg2rad;
-		// 			ranges.gradient.input.node().value = 90 - gradient;
-		// 			ranges.gradient.valueDiv.html(html4range(gradient, 'gradient'));
-		// 		} else {
-		// 			temprange *= ph / pph;
-		// 			setVariables();
-		// 		}
-		// 		steph = atm.getElevation(topp) / 30;
-		// 	}
-		// 	if (p == 'parctempShift') {
-		// 		parctempShift = r.value;
-		// 	}
-
-		// 	r.valueDiv.html(html4range(r.value, p));
-
-		// 	clearTimeout(moving);
-		// 	moving = setTimeout(() => {
-		// 		moving = false;
-		// 		if (p == 'parctemp') {
-		// 			drawParcelTraj(selectedSkewt); //vale already set
-		// 		} else {
-		// 			resize();
-		// 		}
-		// 	}, 1000);
-
-		// 	if (p == 'parctemp') {
-		// 		selectedSkewt.parctemp = r.value;
-		// 		drawParcelTraj(selectedSkewt);
-		// 	} else {
-		// 		resize();
-		// 	}
-
-		// 	this.cbfRange({ topp, gradient, parctempShift });
-		// });
+			.attr('class', 'skewt-ranges');
 
 		contnr.append('div').attr('class', 'flex-break');
 	}

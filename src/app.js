@@ -13,35 +13,36 @@ export default function SkewtPlus() {
 }
 
 function SkewtComponent({ sounding }) {
-	const { print, data } = usePrint();
 	const skewRef = useRef();
 	console.log(sounding);
 	const onEvent = useCallback((e) => {
 		console.log(e.tempLine);
 	}, []);
-	const [lines, setLines] = useState(null);
-	useEffect(() => {
-		console.log(lines);
-		if (!!lines) {
-			// const l = d3.selectAll(lines);
-			// l.on('click', () => {
-			// 	console.log('YERP');
-			// });
-			console.log(lines);
-		}
-		// if (!!tempLine)
-		// 	tempLine.on('click', () => {
-		// 		console.log('asdasd');
-		// 	});
-	}, [lines]);
+	const [data, print] = useState(null);
+
+	// useEffect(() => {
+	// 	console.log(lines);
+	// 	if (!!lines) {
+	// 		// const l = d3.selectAll(lines);
+	// 		// l.on('click', () => {
+	// 		// 	console.log('YERP');
+	// 		// });
+	// 		console.log(lines);
+	// 	}
+	// 	// if (!!tempLine)
+	// 	// 	tempLine.on('click', () => {
+	// 	// 		console.log('asdasd');
+	// 	// 	});
+	// }, [lines]);
 
 	useEffect(() => {
 		const skew = new Skewt(skewRef.current, {}, onEvent);
 		const { data, lines, parctemp } = skew.plot(sounding);
-		// const tmp = d3.select(lines.tempLine);
-		// tmp.on('click', console.log('asdasdas'));
 		print(lines);
-		setLines(lines);
+		console.log(lines);
+		// lines.tempLine.on('click', () => {
+		// 	console.log('CLICKED');
+		// });
 		// console.log(tmp);
 		// console.log(plt);
 		// skew.setCallback(onEvent);
