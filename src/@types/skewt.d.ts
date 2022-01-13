@@ -1,102 +1,64 @@
-// import type { Selection } from 'd3'
-// import defaultTheme from 'lib/theme'
+declare namespace Skewt {
+	type GElement = Element;
+	type Dataset = Datum[][];
+	type Datums = Datum[];
+	type Datum = {
+		press: number;
+		hght: number;
+		temp: number;
+		dwpt: number;
+		wdir: number;
+		wspd: number;
+	};
 
+	type Dispatch =  //
+		| { datums: Skewt.Datum[] } //
+		| { scales: Skewt.Scales }
+		| { axes: Skewt.Axes }
+		| { dims: Skewt.Dims }
+		| { windBarbs: Skewt.WindBarbs }
+		| { darkMode: boolean }
+		| { isSized: boolean };
+	/** x & y scales
+	 * x = linear skewt for Skewd Temp Lines
+	 * y = log pressure lines
+	 */
+	interface Scales {
+		x: d3.ScaleLinear<number, number, never>;
+		y: d3.ScaleLogarithmic<number, number, never>;
+	}
+	interface Axes {
+		x0: Axis<NumberValue>;
+		y0: Axis<NumberValue>;
+		y1: Axis<NumberValue>;
+		y2: Axis<NumberValue>;
+	}
+	// interface WindBarbs {
+	// 	[k: string]: SVGElement;
+	// }
+	interface Dims {
+		height: number;
+		width: number;
+	}
 
+	type SVGGLineElements = 'temperature' | 'dewpoint' | 'isobars' | 'isotherms' | 'isohumes' | 'dryAdiabats' | 'moistAdiabats' | 'envLapseRate';
+	interface SVGGLine {
+		light: string;
+		dark: string;
+		strokeWidth: number;
+		strokeOpacity: number;
+	}
+	// rokeOpacity: number;
 
-declare namespace SKEWT {
+	interface SVGGRect {
+		light: string;
+		dark: string;
+	}
 
-    type PROPS = {
-        datums: DATUMS
-        theme?: THEME
-    }
-    type DATUMS = DATUM[]
-    type DATUM = {
-        press: number;
-        hght: number;
-        temp: number;
-        dwpt: number;
-        wdir: number;
-        wspd: number;
-    }
-    type LINEOVEREVENT = (e: any, lineObj: any) => any;
-    interface MOUSE_EVENT {
-        target: {
-            __data__: number | number[];
-        };
-    }
-    interface PRESSURE {
-        at11km: number;
-        increment: number;
-        mbarTicks: number[];
-        altTicks: number[];
-        base: number;
-        log: number[];
-        top: number;
-    };
-    type TEMPERATURE = {
-        mid: number;
-        range: number;
-        skew: number[];
-    }
-    type MARGIN = {
-        top: number;
-        right: number;
-        bottom: number;
-        left: number;
-    };
-
-    interface SCALES {
-        tan: number;
-        x: ScaleLinear<number, number, never>;
-        y: ScaleLogarithmic<number, number, never>;
-    }
-    interface AXES {
-        x0: d3.Axis<d3.AxisDomain>;
-        y0: d3.Axis<d3.AxisDomain>;
-        y1: d3.Axis<d3.AxisDomain>;
-        y2: d3.Axis<d3.AxisDomain>;
-    }
-    interface LINE_GENERATORS {
-        temp: d3.Line<[number, number]>;
-        dewpt: d3.Line<[number, number]>;
-        elr: d3.Line<[number, number]>;
-        dalr: d3.Line<[number, number]>;
-        malr: d3.Line<[number, number]>;
-        isohume: d3.Line<[number, number]>;
-    }
-    interface DIMS {
-        height: number
-        width: number
-
-    }
-    // scales: null,
-    // lineGen: null,
-    type ALL = number[][];
-    interface STATE {
-        initialized: boolean
-        // theme: THEME
-        T: TEMPERATURE
-        P: PRESSURE
-        margin: MARGIN
-        all: ALL
-        dims: DIMS
-        datums: DATUMS | null
-        scales: SCALES | null
-        lineGen: LINE_GENERATORS | null
-        axes: AXES | null
-
-    }
+	type LINEOVEREVENT = (e: any, lineObj: any) => any;
+	interface MOUSE_EVENT {
+		target: {
+			__data__: number | number[];
+		};
+	}
 }
-
-
-namespace USED3 {
-    //Selection<any, unknown, null, undefined>
-    type RENDER = (element: d3.Selection<any, unknown, null, undefined>) => { [key: string]: any } | void
-    type DEPS = React.DependencyList
-
-}
-
-
-// ... 5 more ...;
-// _all: number[][];
-// }

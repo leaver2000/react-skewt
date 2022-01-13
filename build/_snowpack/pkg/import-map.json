@@ -1,0 +1,19 @@
+{
+  "imports": {
+    "@mui/material/Box": "./@mui/material/Box.js",
+    "@mui/material/CssBaseline": "./@mui/material/CssBaseline.js",
+    "@mui/material/FormControl": "./@mui/material/FormControl.js",
+    "@mui/material/FormControlLabel": "./@mui/material/FormControlLabel.js",
+    "@mui/material/FormLabel": "./@mui/material/FormLabel.js",
+    "@mui/material/Grid": "./@mui/material/Grid.js",
+    "@mui/material/Paper": "./@mui/material/Paper.js",
+    "@mui/material/Radio": "./@mui/material/Radio.js",
+    "@mui/material/RadioGroup": "./@mui/material/RadioGroup.js",
+    "@mui/material/colors": "./@mui/material/colors.js",
+    "@mui/material/styles": "./@mui/material/styles.js",
+    "d3": "./d3.js",
+    "d3-selection": "./d3-selection.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js"
+  }
+}

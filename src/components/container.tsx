@@ -1,46 +1,58 @@
-import React from 'react'
-import JSONTree from 'react-json-tree';
-// import { select } from 'd3'
+import React from 'react';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { scaleLinear, range as arrange, select } from 'd3';
-import { makeScales, makeLines, makeAxes } from 'lib/make';
-import useD3 from 'hooks/use-d3'
-import useCTX, { SkewtCTX } from 'hooks/use-ctx'
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+//	hooks
+import useCTX from 'hooks/use-ctx';
+import useResizeObserver from 'hooks/use-resize-observer';
+//	components
+import Diagram from './diagram';
+import Sounding from './sounding';
+import WindStaff from './wind-staff';
+//
 
-export default function Container({ ...props }) {
-    const ctx = useCTX()
-    const [shouldResize, setShouldResize] = React.useState(true);
-    React.useEffect(() => window.addEventListener('resize', () => setShouldResize(true)), []);
+const Item = styled(Paper)(({ theme }) => ({
+	...theme.typography.body2,
+	padding: theme.spacing(1),
+	textAlign: 'center',
+	color: theme.palette.text.secondary,
+}));
+export default function Container() {
+	const { setState, isSized } = useCTX();
 
+	React.useEffect(() => window.addEventListener('resize', () => setState({ isSized: false })), []);
 
-    const ref = useD3((element) => {
-        if (shouldResize) {
+	const ref = useResizeObserver<HTMLDivElement>((element) => {
+		const height = element.offsetWidth;
+		const width = element.offsetHeight;
 
+		// console.log({ width, height });
+	});
 
-            resize(parseInt(element.style('width'), 10) - 10)
-
-            ctx.setState({ initialized: true })
-        }
-    }, [shouldResize])
-
-    const resize = React.useCallback(
-        (width: number) => {
-            setShouldResize(false);
-            const { margin } = ctx
-
-            let height = width; //to fix
-            width = width - margin.left - margin.right;
-            height = width - margin.top - margin.bottom;
-
-            const scales = makeScales(width, height, ctx.T, ctx.P);
-            const axes = makeAxes(scales, ctx.P);
-            const lineGen = makeLines(scales, ctx.P);
-            ctx.setState({ initialized: true, dims: { height, width }, axes, lineGen, scales })
-
-
-        }, [ctx])
-
-
-    return <Box ref={ref} sx={{ backgroundColor: 'primary.dark', borderRadius: '5px' }} {...(ctx.initialized ? props : [null])} />;
-
+	return (
+		<Box ref={ref} sx={{ flexGrow: 1 }}>
+			<Grid container alignItems='stretch'>
+				<Grid item xs={10}>
+					<Item>xs=10</Item>
+				</Grid>
+				<Grid item xs={2}>
+					<Item>xs=2</Item>
+				</Grid>
+				{/* TOP ROW */}
+				<Grid container item direction='row' alignItems='stretch' sx={{ border: '2px solid red', borderRadius: '5px' }}>
+					{/* Ref -> setDim -> isSize = True */}
+					<Grid item xs={10} sx={{ border: ' 2px solid black', borderRadius: '5px' }}>
+						<Diagram>
+							<Sounding />
+						</Diagram>
+					</Grid>
+					<Grid item xs={2} sx={{ border: ' 2px solid black', borderRadius: '5px' }}>
+						{isSized ? <WindStaff /> : null}
+					</Grid>
+				</Grid>
+				{/*  */}
+			</Grid>
+		</Box>
+	);
 }

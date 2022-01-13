@@ -1,30 +1,30 @@
 Arguments: 
-  /home/jason_leaver_developer/miniconda3/bin/node /usr/local/nvm/versions/node/v12.14.1/bin/yarn add @mui/material/styles
+  /home/leaver2000/.nvm/versions/node/v16.0.0/bin/node /mnt/c/Users/Jason/AppData/Roaming/npm/node_modules/yarn/bin/yarn.js add d3-wind-barb
 
 PATH: 
-  /home/jason_leaver_developer/miniconda3/bin:/opt/gradle/bin:/opt/maven/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/go/bin:/usr/local/nvm/versions/node/v12.14.1/bin:/usr/local/rvm/bin:/google/go_appengine:/google/google_appengine:/google/migrate/anthos:/home/jason_leaver_developer/.gems/bin:/usr/local/rvm/bin:/home/jason_leaver_developer/gopath/bin:/google/gopath/bin:/google/flutter/bin
+  /home/leaver2000/.cache/cloud-code/installer/google-cloud-sdk/bin:/home/leaver2000/.vscode-server/bin/899d46d82c4c95423fb7e10e68eba52050e30ba3/bin:/home/leaver2000/.local/bin:/home/leaver2000/anaconda3/bin:/home/leaver2000/anaconda3/condabin:/home/leaver2000/.nvm/versions/node/v16.0.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Python39/Scripts:/mnt/c/Python39:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files (x86)/Common Files/Acronis/SnapAPI:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program Files/nodejs:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Users/Jason/AppData/kompose-windows-amd64:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Users/Jason/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Jason/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Jason/AppData/Roaming/npm:/mnt/c/Users/Jason/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin:/mnt/c/Users/Jason/AppData/kompose-windows-amd64:/snap/bin
 
 Yarn version: 
-  1.22.17
+  1.22.11
 
 Node version: 
-  14.17.4
+  16.0.0
 
 Platform: 
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@mui%2fmaterial/styles: Request "https://registry.yarnpkg.com/@mui%2fmaterial/styles" returned a 405
-      at Request.params.callback [as _callback] (/usr/local/nvm/versions/node/v12.14.1/lib/node_modules/yarn/lib/cli.js:67038:18)
-      at Request.self.callback (/usr/local/nvm/versions/node/v12.14.1/lib/node_modules/yarn/lib/cli.js:140883:22)
-      at Request.emit (events.js:400:28)
-      at Request.<anonymous> (/usr/local/nvm/versions/node/v12.14.1/lib/node_modules/yarn/lib/cli.js:141855:10)
-      at Request.emit (events.js:400:28)
-      at IncomingMessage.<anonymous> (/usr/local/nvm/versions/node/v12.14.1/lib/node_modules/yarn/lib/cli.js:141777:12)
-      at Object.onceWrapper (events.js:519:28)
-      at IncomingMessage.emit (events.js:412:35)
-      at endReadableNT (internal/streams/readable.js:1317:12)
-      at processTicksAndRejections (internal/process/task_queues.js:82:21)
+  Error: https://registry.yarnpkg.com/d3-wind-barb: Not found
+      at Request.params.callback [as _callback] (/mnt/c/Users/Jason/AppData/Roaming/npm/node_modules/yarn/lib/cli.js:66992:18)
+      at Request.self.callback (/mnt/c/Users/Jason/AppData/Roaming/npm/node_modules/yarn/lib/cli.js:140763:22)
+      at Request.emit (node:events:365:28)
+      at Request.<anonymous> (/mnt/c/Users/Jason/AppData/Roaming/npm/node_modules/yarn/lib/cli.js:141735:10)
+      at Request.emit (node:events:365:28)
+      at IncomingMessage.<anonymous> (/mnt/c/Users/Jason/AppData/Roaming/npm/node_modules/yarn/lib/cli.js:141657:12)
+      at Object.onceWrapper (node:events:471:28)
+      at IncomingMessage.emit (node:events:377:35)
+      at endReadableNT (node:internal/streams/readable:1312:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {
@@ -48,7 +48,6 @@ npm manifest:
       "author": "",
       "license": "ISC",
       "devDependencies": {
-          "@mui/types": "^7.1.0",
           "@snowpack/plugin-react-refresh": "^2.5.0",
           "@snowpack/plugin-webpack": "^3.0.0",
           "@types/d3": "^7.1.0",

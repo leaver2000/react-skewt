@@ -2,24 +2,14 @@
     "compilerOptions": {
         "baseUrl": "src",
         "paths": {
-            "lib/*": [
-                "lib/*"
-            ],
-            "hooks/*": [
-                "hooks/*"
-            ],
-            "components/*": [
-                "components/*"
-            ],
-            "controller/*": [
-                "controller/*"
-            ],
-            "route/*": [
-                "route/*"
-            ],
-            "@types": [
-                "@types"
-            ]
+            "*": ["@types/*.d.ts"],
+            "lib/*":["lib/*"],
+            "lib":["lib"],
+            "hooks/*":["hooks/*"],
+            "components/*":["components/*"],
+            "controller":["controller/index"],
+            "routes/*":["route/*"],
+            "SVGGElements":["lib/SVGElements.tsx"]
         },
         "lib": [
             "es6",
