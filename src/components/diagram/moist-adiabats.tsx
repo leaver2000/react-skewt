@@ -13,16 +13,16 @@ export default function MoistAdiabats() {
 
 	const lineGenerator = React.useMemo(() => {
 		const { x, y } = scales;
-		let temp: number;
+		let temperature: number;
 		return line<number>()
 			.curve(curveLinear)
 			.x((d, i) => {
 				const pressureValue = LOG_P[i];
 
 				if (!!pressureValue) {
-					if (i === 0) temp = K0 + d;
-					else if (!!pressureValue) temp = temp + moistGradientT(pressureValue, temp) * P.increment;
-					return x(temp - K0) + (y(P.base) - y(pressureValue)) / tangent;
+					if (i === 0) temperature = K0 + d;
+					else if (!!pressureValue) temperature = temperature + moistGradientT(pressureValue, temperature) * P.increment;
+					return x(temperature - K0) + (y(P.base) - y(pressureValue)) / tangent;
 				} else return 0;
 			})
 			.y((_, i) => {

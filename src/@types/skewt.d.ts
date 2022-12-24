@@ -3,12 +3,12 @@ declare namespace Skewt {
 	type Dataset = Datum[][];
 	type Datums = Datum[];
 	type Datum = {
-		press: number;
-		hght: number;
-		temp: number;
-		dwpt: number;
-		wdir: number;
-		wspd: number;
+		pressure: number;
+		height: number;
+		temperature: number;
+		dewPoint: number;
+		windDirection: number;
+		windSpeed: number;
 	};
 
 	type Dispatch =  //
@@ -41,7 +41,7 @@ declare namespace Skewt {
 		width: number;
 	}
 
-	type SVGGLineElements = 'temperature' | 'dewpoint' | 'isobars' | 'isotherms' | 'isohumes' | 'dryAdiabats' | 'moistAdiabats' | 'envLapseRate';
+	type SVGGLineElements = 'temperature' | 'dewPoint' | 'isobars' | 'isotherms' | 'isohumes' | 'dryAdiabats' | 'moistAdiabats' | 'envLapseRate';
 	interface SVGGLine {
 		light: string;
 		dark: string;

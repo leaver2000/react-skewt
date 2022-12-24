@@ -24,12 +24,12 @@ interface Props {
  *
  * ```
  * type Datum = {
- *   press: number;
- *   hght: number;
- *   temp: number;
- *   dwpt: number;
- *   wdir: number;
- *   wspd: number;
+ *   pressure: number;
+ *   height: number;
+ *   temperature: number;
+ *   dewPoint: number;
+ *   windDirection: number;
+ *   windSpeed: number;
  * }
  * ```
  *

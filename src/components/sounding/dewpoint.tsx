@@ -13,8 +13,8 @@ export default function Dewpoint() {
 		const { x, y } = scales;
 		return line<Skewt.Datum>() //
 			.curve(curveLinear)
-			.x((d) => x(d.dwpt) + (y(P.base) - y(d.press)) / tangent)
-			.y((d) => y(d.press));
+			.x((d) => x(d.dewPoint) + (y(P.base) - y(d.pressure)) / tangent)
+			.y((d) => y(d.pressure));
 	}, [scales]);
 
 	const ref = useD3<SVGGElement>(
@@ -26,7 +26,7 @@ export default function Dewpoint() {
 				.enter()
 				.append('path')
 				.attr('d', lineGenerator)
-				.attr('class', 'skewt-elements dewpoint')
+				.attr('class', 'skewt-elements dewPoint')
 				.attr('clip-path', 'url(#clipper)');
 		},
 		[datums, lineGenerator]

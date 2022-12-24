@@ -2,7 +2,7 @@ import React from 'react';
 import { line, curveLinear } from 'd3';
 //	lib
 import { SVGGIsohumes } from 'lib/SVGElements';
-import { mixingRatio, saturationVaporPressure, vaporPressure, dewpoint, K0 } from 'lib/atmo2';
+import { mixingRatio, saturationVaporPressure, vaporPressure, dewPoint, K0 } from 'lib/atmo2';
 import { P, all, tangent, LOG_P } from 'lib';
 //	hooks
 import useD3 from 'hooks/use-d3';
@@ -13,7 +13,7 @@ export default function Isohumes() {
 
 	const lineGenerator = React.useMemo(() => {
 		const { x, y } = scales;
-		let temp: number;
+		let temperature: number;
 		let mixing_ratio: number;
 		return line<number>()
 			.curve(curveLinear)
@@ -21,8 +21,8 @@ export default function Isohumes() {
 				const pressureValue = LOG_P[i];
 				if (i === 0) mixing_ratio = mixingRatio(saturationVaporPressure(d + K0), pressureValue);
 				else if (!!pressureValue) {
-					temp = dewpoint(vaporPressure(pressureValue, mixing_ratio));
-					return x(temp - K0) + (y(P.base) - y(pressureValue)) / tangent;
+					temperature = dewPoint(vaporPressure(pressureValue, mixing_ratio));
+					return x(temperature - K0) + (y(P.base) - y(pressureValue)) / tangent;
 				}
 				return 0;
 			})

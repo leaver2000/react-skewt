@@ -13,8 +13,8 @@ export default function Temperature() {
 		const { x, y } = scales;
 		return line<Skewt.Datum>() //
 			.curve(curveLinear)
-			.x((d) => x(d.temp) + (y(P.base) - y(d.press)) / tangent)
-			.y((d) => y(d.press));
+			.x((d) => x(d.temperature) + (y(P.base) - y(d.pressure)) / tangent)
+			.y((d) => y(d.pressure));
 	}, [scales]);
 	//
 	const ref = useD3<SVGGElement>(

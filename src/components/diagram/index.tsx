@@ -60,7 +60,7 @@ export default function Diagram({ ...props }) {
 					<DryAdibats />
 					<Isohumes />
 					<Ticks />
-					{/* props.children = temp & dewp sounding profile */}
+					{/* props.children = temperature & dewp sounding profile */}
 					{!!ctx.datums ? props.children : null}
 				</svg>
 			) : null}

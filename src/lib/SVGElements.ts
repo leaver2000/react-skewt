@@ -19,7 +19,7 @@ export default createTheme({
 		strokeWidth: 2,
 		strokeOpacity: 1,
 	},
-	dewpoint: {
+	dewPoint: {
 		light: blue['A700'],
 		dark: blue['A700'],
 		strokeWidth: 2,
@@ -68,7 +68,7 @@ export default createTheme({
 });
 
 export const SVGGTemperature = applyPathLineStyles('temperature');
-export const SVGGDewpoint = applyPathLineStyles('dewpoint');
+export const SVGGDewpoint = applyPathLineStyles('dewPoint');
 export const SVGGIsobars = applyPathLineStyles('isobars');
 export const SVGGIsotherms = applyPathLineStyles('isotherms');
 export const SVGGIsohumes = applyPathLineStyles('isohumes');
@@ -90,7 +90,7 @@ declare module '@mui/material/styles' {
 	interface Theme {
 		backdrop: Skewt.SVGGRect;
 		temperature: Skewt.SVGGLine;
-		dewpoint: Skewt.SVGGLine;
+		dewPoint: Skewt.SVGGLine;
 		isobars: Skewt.SVGGLine;
 		isotherms: Skewt.SVGGLine;
 		envLapseRate: Skewt.SVGGLine;
@@ -101,7 +101,7 @@ declare module '@mui/material/styles' {
 	interface ThemeOptions {
 		backdrop: Skewt.SVGGRect;
 		temperature: Skewt.SVGGLine;
-		dewpoint: Skewt.SVGGLine;
+		dewPoint: Skewt.SVGGLine;
 		isobars: Skewt.SVGGLine;
 		isotherms: Skewt.SVGGLine;
 		envLapseRate: Skewt.SVGGLine;

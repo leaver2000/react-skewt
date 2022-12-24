@@ -57,10 +57,10 @@ export const dryLapse = (pressure: number, tK0: number, p0: number) =>
 	tK0 * Math.pow(pressure / p0, DRY_AIR_SPECIFC_GAS_DENSITY / DRY_AIR_SPECIFC_HEAT_AT_CONSTANT_PRESSURE);
 
 //to calculate isohume lines:
-//1.  Obtain saturation vapor pressure at a specific temperature = partial pressure at a specific temp where the air will be saturated.
+//1.  Obtain saturation vapor pressure at a specific temperature = partial pressure at a specific temperature where the air will be saturated.
 //2.  Mixing ratio:  Use the partial pressure where air will be saturated and the actual pressure to determine the degree of mixing,  thus what % of air is water.
 //3.  Having the mixing ratio at the surface,  calculate the vapor pressure at different pressures.
-//4.  Dewpoint temp can then be calculated with the vapor pressure.
+//4.  Dewpoint temperature can then be calculated with the vapor pressure.
 
 /**	Computes the mixing ration of a gas. */
 export function mixingRatio(partialPressure: number, totalPressure: number, molecularWeightRatio = MOLECULAR_WEIGHT_RATIO) {
@@ -89,8 +89,8 @@ export function moistGradientT(pressure: number, tempK: number) {
 export function vaporPressure(pressure: number, mixingRatio: number) {
 	return (pressure * mixingRatio) / (MOLECULAR_WEIGHT_RATIO + mixingRatio);
 }
-/**	Computes the ambient dewpoint given the vapor (partial) pressure. */
-export function dewpoint(pressure: number) {
+/**	Computes the ambient dewPoint given the vapor (partial) pressure. */
+export function dewPoint(pressure: number) {
 	const val = Math.log(pressure / SATURATION_VAPOR_RATIO);
 	return K0 + (243.5 * val) / (17.67 - val);
 }

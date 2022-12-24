@@ -58,12 +58,12 @@ export default function WindStaff() {
 		if (!!datums) {
 			selectAll('.wind-barbs').remove();
 
-			datums.forEach(({ wspd, wdir, press }) => {
+			datums.forEach(({ windSpeed, windDirection, pressure }) => {
 				const barbOptions = {
 					...defualtBarbOptions,
-					bar: { angle: wdir > 180 ? 30 - 180 : 30, width: 4, padding: 5 },
+					bar: { angle: windDirection > 180 ? 30 - 180 : 30, width: 4, padding: 5 },
 				};
-				select(new D3WindBarb(wspd, wdir, barbOptions).draw(`#windstaff-log-${press}mb`))
+				select(new D3WindBarb(windSpeed, windDirection, barbOptions).draw(`#windstaff-log-${pressure}mb`))
 					.attr('class', 'wind-barbs')
 					.attr('width', 35)
 					.attr('height', 35);
