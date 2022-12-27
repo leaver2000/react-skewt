@@ -1,44 +1,21 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src",
-        "paths": {
-            "*": ["@types/*.d.ts"],
-            "lib/*":["lib/*"],
-            "lib":["lib"],
-            "hooks/*":["hooks/*"],
-            "components/*":["components/*"],
-            "controller":["controller/index"],
-            "routes/*":["route/*"],
-            "SVGGElements":["lib/SVGElements.tsx"]
-        },
-        "lib": [
-            "es6",
-            "dom"
-        ],
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        // "allowJs": true,
-        "skipLibCheck": true,
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "noEmit": false,
-        "jsx": "react-jsx",
-        // "noImplicitAny": false,
-    },
-    "include": [
-        "src/**/*",
-        "@types/**/*.d.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "**/*.spec.ts"
-    ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
