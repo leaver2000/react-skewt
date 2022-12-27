@@ -5,7 +5,7 @@
  * @returns number
  */
 function clampIndex(index: number, length: number) {
-	return Math.max(0, Math.min(index, length - 1));
+  return Math.max(0, Math.min(index, length - 1));
 }
 /**
  * filter the data to get the index position of the nearest level dimension
@@ -13,9 +13,12 @@ function clampIndex(index: number, length: number) {
  * @param pressure
  * @returns SkewT.Datum
  */
-function getDatumsAtLevel(datums: SkewT.Datums, pressure: Millibar): SkewT.Datum {
-	const level = datums.findIndex((d) => d.pressure === pressure);
-	return datums[level];
+function getDatumsAtLevel(
+  datums: SkewT.Datums,
+  pressure: Millibar
+): SkewT.Datum {
+  const level = datums.findIndex((d) => d.pressure === pressure);
+  return datums[level];
 }
 
 export { clampIndex, getDatumsAtLevel };

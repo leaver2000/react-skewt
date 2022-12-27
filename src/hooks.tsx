@@ -1,21 +1,21 @@
-import React from 'react';
-import * as d3 from 'd3';
-import { SkewTContext } from './context';
+import React from "react";
+import * as d3 from "d3";
+import { SkewTContext } from "./context";
 
 enum DataAction {
-  INCREMENT = 'INCREMENT',
-  DECREMENT = 'DECREMENT',
+  INCREMENT = "INCREMENT",
+  DECREMENT = "DECREMENT",
 }
 type DataActions = typeof DataAction[keyof typeof DataAction] & DataAction;
 const DATA_AXIS = {
-  TIME : 'timeIndex',
-  LEVEL : 'levelIndex',
+  TIME: "timeIndex",
+  LEVEL: "levelIndex",
 } as const;
 
 type DataAxis = typeof DATA_AXIS[keyof typeof DATA_AXIS];
 /**
  * a hook that returns a ref to an element and a function that renders a d3 selection
- * 
+ *
  * usage:
  * ```
  * const ref = useD3((g) => {
@@ -24,7 +24,10 @@ type DataAxis = typeof DATA_AXIS[keyof typeof DATA_AXIS];
  * return <g ref={ref} />
  * ```
  */
-function useD3<T extends Element>(render: (element: d3.Selection<T, any, any, any>) => void, deps: React.DependencyList = []) {
+function useD3<T extends Element>(
+  render: (element: d3.Selection<T, any, any, any>) => void,
+  deps: React.DependencyList = []
+) {
   const ref = React.useRef<T>(null);
   React.useEffect(() => {
     if (ref.current) render(d3.select(ref.current));
@@ -38,7 +41,7 @@ function useD3<T extends Element>(render: (element: d3.Selection<T, any, any, an
 function useSkewT() {
   const ctx = React.useContext(SkewTContext);
   if (!ctx) {
-    throw new Error('useSkewT must be used within a SkewTProvider');
+    throw new Error("useSkewT must be used within a SkewTProvider");
   }
   const setPartialState = React.useCallback(
     (partialState: Partial<SkewT.State>) => {
@@ -48,7 +51,10 @@ function useSkewT() {
   );
   const setPartialDataState = React.useCallback(
     (dataState: Partial<SkewT.DataState>) => {
-      ctx.setState((state) => ({ ...state, dataState: { ...state.dataState, ...dataState } }));
+      ctx.setState((state) => ({
+        ...state,
+        dataState: { ...state.dataState, ...dataState },
+      }));
     },
     [ctx.setState]
   );
@@ -65,8 +71,8 @@ function useSkewT() {
         } else if (action === DataAction.DECREMENT) {
           i = Math.max(i - 1, 0);
         }
-        console.log(state)
-        return {...state, dataState: {...dataState, [axis]: i} };
+        console.log(state);
+        return { ...state, dataState: { ...dataState, [axis]: i } };
       });
     },
     [setPartialState]
@@ -79,7 +85,7 @@ function useSkewT() {
 
       const y = ctx.scales.yLogarithmic.invert(clientY);
       const { height } = ctx.dimensions;
-      console.log('y', y);
+      console.log("y", y);
       // const { y: y2 } = ctx.scales.y.invert(height - clientY);
       // const { datums } = ctx;
       // const datum = datums.find((d) => d.x === x && d.y === y2);
@@ -96,9 +102,15 @@ function useSkewT() {
     },
     [ctx]
   );
-    // console.log(datums)
+  // console.log(datums)
 
-  return { ...ctx, ...datums, setPartialState, mouseEventDispatcher, setPartialDataState,  };
+  return {
+    ...ctx,
+    ...datums,
+    setPartialState,
+    mouseEventDispatcher,
+    setPartialDataState,
+  };
 }
 
 export { useD3, useSkewT };

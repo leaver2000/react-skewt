@@ -1,3 +1,3 @@
-export { default } from "./diagram"
-export * from "./background"
-export * from "./sounding"
+export { default } from "./diagram";
+export * from "./background";
+export * from "./sounding";
