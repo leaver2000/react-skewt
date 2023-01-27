@@ -1,7 +1,7 @@
 /**
- *  `tempK = tempC + ABSOLUTE_ZERO`
+ *  `tempK = tempC - ABSOLUTE_ZERO`
  *
- *  `tempC = tempK - ABSOLUTE_ZERO`
+ *  `tempC = tempK + ABSOLUTE_ZERO`
  * */
 const ABSOLUTE_ZERO = -273.15 as Kelvin;
 // ----------------------------

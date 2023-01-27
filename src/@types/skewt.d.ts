@@ -1,138 +1,74 @@
 // Type definitions for SkewT Log-P Diagram
-
-declare namespace TARP {
-  interface Values {
-    value: number | string | null;
-    validTime: string;
-    edited: boolean;
-    entry_id: string;
-  }
-
-  interface Levels {
-    level: string;
-    values: Values[];
-  }
-
-  interface Data {
-    /** The name of the parameter */
-    parameter: string;
-    levels: Levels[];
-  }
-  interface Metadata {
-    [key: string]: string;
-  }
-  interface Dataset {
-    metadata: {
-      [key: string]: string;
-    };
-    data: Data[];
-  }
-}
+type NativePointerEvent = PointerEvent;
 
 declare namespace SkewT {
-  interface GElementProps extends React.SVGProps<SVGGElement> {
-    hidden?: boolean;
-  }
-
+  /////////////////////////////////////////
+  //      Skew-T Dataset
+  /////////////////////////////////////////
+  // the skew-t dataset is for a fixed x, y location
+  // with a vertical and temporal dimension
+  type Dataset = { validTime: string; datums: Datums }[];
+  // datums represent a single point in in that temporal dimension and includes a vertical dimension
+  type Datums = Datum[];
+  // a single datum represents a point in space and time ie: fixed x,y,z, and t
   type Datum = {
-    pressure: number;
+    pressure: Millibar;
     height: number;
-    temperature: number;
-    dewPoint: number;
+    temperature: Celsius;
+    dewPoint: Celsius;
     windDirection: number;
     windSpeed: number;
   };
-
-  type Datums = Datum[];
-
-  type Dataset = { validTime: string; data: Datums }[];
+  // the dataState is used to control the data that is displayed in the skew-t
+  // mouse & pointer events will trigger changes to the dataState and force a re-render
   interface DataState {
     timeIndex: number;
-    pressureLevel: number;
+    pressureLevel: Millibar;
   }
-
+  /////////////////////////////////////////
+  //      Skew-T SVG
+  /////////////////////////////////////////
+  // the dimensions of the svg are also managed by state but should not be confused with the dimensions of the data
+  interface Dimensions {
+    height: number;
+    width: number;
+  }
+  // a change to the sizing dimensions will trigger the scales to be updated
   interface Scales {
-    xLinear: d3.ScaleLinear<number, number, never>;
-    yLogarithmic: d3.ScaleLogarithmic<number, number, never>;
+    x: d3.ScaleLinear<number, number, never>;
+    y: d3.ScaleLogarithmic<number, number, never>;
   }
-  /** DataState is the state of the data that is being displayed */
-
+  // the axes are built from the scales
   interface Axes {
     x0: d3.Axis<d3.NumberValue>;
     y0: d3.Axis<d3.NumberValue>;
     y1: d3.Axis<d3.NumberValue>;
     y2: d3.Axis<d3.NumberValue>;
   }
-
-  interface Dimensions {
-    height: number;
-    width: number;
-  }
-
-  interface SVGGLine {
-    light: string;
-    dark: string;
-    strokeWidth: number;
-    strokeOpacity: number;
-  }
-
+  /////////////////////////////////////////
+  //      Skew-T State
+  /////////////////////////////////////////
+  // all of the state is managed in a single object that is passed to the context provider
+  // and can be accessed by any of the child components using the useSkewT hook
   interface State {
-    dataState: DataState;
+    // Dataset State
     dataset: Dataset;
-    data: Datums;
-    validTime: Date;
-    //
+    datums: Datums;
+    validTimes: Date[];
+    pressureLevels: Millibar[];
     metadata?: TARP.Metadata;
-    //
-    scales: Scales;
-    axes: Axes;
-    dimensions: Dimensions;
   }
   interface Context extends State {
-    setState: React.Dispatch<React.SetStateAction<SkewT.State>>;
+    setPartialState: (partialState: Partial<SkewT.State>) => void;
   }
+  interface GElementProps extends React.SVGProps<SVGGElement> {
+    hidden?: boolean;
+  }
+  interface PathElementProps extends React.SVGProps<SVGPathElement> {
+    hidden?: boolean;
+  }
+  interface LineElementProps extends React.SVGProps<SVGLineElement> {
+    hidden?: boolean;
+  }
+  type PointerEvent = D3PointerEvent<SVGElement>;
 }
-// establishing some unit types, this is a bit of a hack
-// but it works for catching errors in the code
-
-// Temperature units
-enum KelvinTemperature {
-  _ = 0,
-}
-declare type Kelvin = number & KelvinTemperature;
-enum CelsiusTemperature {
-  _ = 1,
-}
-declare type Celsius = number & CelsiusTemperature;
-enum FahrenheitTemperature {
-  _ = 2,
-}
-declare type Fahrenheit = number & FahrenheitTemperature;
-
-// Pressure units
-enum HectoPascalPressure {
-  _ = 3,
-}
-declare type HectoPascal = number & HectoPascalPressure;
-enum MillibarPressure {
-  _ = 4,
-}
-declare type Millibar = number & MillibarPressure;
-enum InchOfMercuryPressure {
-  _ = 5,
-}
-declare type InchOfMercury = number & InchOfMercuryPressure;
-
-// Distance units
-enum MeterDistance {
-  _ = 6,
-}
-declare type Meter = number & MeterDistance;
-enum KilometerDistance {
-  _ = 7,
-}
-declare type Kilometer = number & KilometerDistance;
-enum FeetDistance {
-  _ = 8,
-}
-declare type Feet = number & FeetDistance;

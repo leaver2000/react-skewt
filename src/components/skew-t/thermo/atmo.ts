@@ -19,14 +19,16 @@ const pressureFromElevation = (
 
 /**
  * Computes the temperature at the given pressure assuming dry processes.
- *
- *  tempKRef is the starting temperature at p0 (degree Celsius).
  */
-const dryLapse = (pressure: Millibar, temp: Celsius, p0: number) =>
+const dryLapse = (
+  pressure: Millibar,
+  temp: Kelvin,
+  basePressure: number
+): Kelvin =>
   //
   temp *
   Math.pow(
-    pressure / p0,
+    pressure / basePressure,
     SPECIFIC_GAS_CONSTANT / PRESSURE_FOR_DRY_AIR_CONSTANT
   );
 
@@ -48,11 +50,11 @@ function mixingRatio(
 }
 
 /** Computes the saturation mixing ratio of water vapor.*/
-const saturationMixingRatio = (pressure: Millibar, temp: Celsius) =>
+const saturationMixingRatio = (pressure: Millibar, temp: Kelvin) =>
   mixingRatio(saturationVaporPressure(temp), pressure);
 
 /**Computes the saturation water vapor (partial) pressure*/
-function saturationVaporPressure(temp: Celsius) {
+function saturationVaporPressure(temp: Kelvin) {
   return SATURATION_VAPOR_RATIO * Math.exp((17.67 * temp) / (temp + 243.5));
 }
 /**
@@ -61,7 +63,7 @@ function saturationVaporPressure(temp: Celsius) {
  * @returns Saturation Vapor Pressure in hPa
  * @see https://www.weather.gov/media/epz/wxcalc/vaporPressure.pdf
  * */
-function saturationVaporPressureAlt(tempC: number): number {
+function saturationVaporPressureAlt(tempC: Celsius): number {
   let es: number;
   if (tempC >= 0) {
     es =
@@ -72,8 +74,12 @@ function saturationVaporPressureAlt(tempC: number): number {
   }
   return es / 100;
 }
-/**A typical value is around 1.5 °C/1,000 ft */
-function moistGradientT(pressure: Millibar, temp: Kelvin) {
+/**
+ * Computes the temperature gradient assuming liquid saturation process.
+ * @param {Millibar} pressure Pressure in hPa
+ * @param {Kelvin} temp Temperature in Kelvin
+ */
+function moistTemperatureGradient(pressure: Millibar, temp: Kelvin): number {
   const smRatio = saturationMixingRatio(pressure, temp + ABSOLUTE_ZERO);
   const n = SPECIFIC_GAS_CONSTANT * temp + HEAT_OF_VAPORIZATION * smRatio;
   const d =
@@ -106,7 +112,7 @@ export {
   dryLapse,
   getElevation,
   mixingRatio,
-  moistGradientT,
+  moistTemperatureGradient,
   pressureFromElevation,
   saturationVaporPressure,
   saturationMixingRatio,

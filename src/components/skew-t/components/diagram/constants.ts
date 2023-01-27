@@ -2,15 +2,13 @@ import * as d3 from "d3";
 import { pressureFromElevation } from "../../thermo";
 
 const DEG2RAD = Math.PI / 180;
+/**skew-t the temperature lines by 45° */
 const TANGENT = Math.tan(45 * DEG2RAD);
 
-/* 
-initialize some global constants for the chart
-*/
-
+// initialize some global constants for the chart
 // PRESSURE constants
 // these control the y-axis of the diagram
-const PRESSURE_BASE = 1_050 as Millibar;
+const PRESSURE_BASE = 1_000 as Millibar;
 const PRESSURE_TOP = 50 as Millibar;
 const PRESSURE_INTERVAL = -25 as Millibar;
 // the PRESSURE object is a constant object that contains all the constants for the PRESSURE axis
@@ -20,14 +18,15 @@ const PRESSURE = {
   INTERVAL: PRESSURE_INTERVAL,
   RANGE: d3.range(
     PRESSURE_BASE,
-    PRESSURE_TOP - 50,
+    PRESSURE_TOP + PRESSURE_INTERVAL,
     PRESSURE_INTERVAL
   ) as Millibar[],
   AT_11KM: pressureFromElevation(11_000 as Feet),
-  TICKS: d3.range(PRESSURE_BASE, PRESSURE_TOP - 50, -25) as Millibar[],
+  TICKS: d3.range(PRESSURE_BASE, 0, PRESSURE_INTERVAL) as Millibar[],
 } as const;
+
 // additionally, we need to create a list of altitude values for the PRESSURE y-axis-1 (right side)
-const ALTITUDE_TICKS: number[] = [];
+const ALTITUDE_TICKS: Millibar[] = [];
 for (let i = 0; i < 20_000; i += 10_000 / 3.28084)
   ALTITUDE_TICKS.push(pressureFromElevation(i));
 
@@ -49,16 +48,21 @@ const TEMPERATURE = {
 } as const;
 
 // derived constants
-const DRY_ADIABATIC_LAPSE_RATE = d3
+export const DRY_ADIABATIC_LAPSE_RATE = d3
   .scaleLinear()
   .domain([
-    TEMPERATURE_MID - TEMPERATURE_MAX * 2,
-    TEMPERATURE_MID + TEMPERATURE_MAX * 4,
+    TEMPERATURE.MID - TEMPERATURE.MAX * 2,
+    TEMPERATURE.MID + TEMPERATURE.MAX * 4,
   ])
-  .ticks(36);
-const ALL = Array.from(DRY_ADIABATIC_LAPSE_RATE, (d) =>
-  Array.from(PRESSURE.TICKS, () => d)
-);
+  .ticks(36) as Celsius[];
+
+const ADIABATIC_LAPSE_RATE_DATA = Array.from(DRY_ADIABATIC_LAPSE_RATE, (d) =>
+  Array.from(PRESSURE.RANGE, () => d)
+) as Celsius[][];
+
+const ENVIRONMENTAL_LAPSE_RATE_DATA = PRESSURE.RANGE.filter(
+  (p) => p > PRESSURE.AT_11KM
+).concat([PRESSURE.AT_11KM, PRESSURE.TOP]) as Millibar[];
 
 enum MARGINS {
   TOP = 10,
@@ -73,7 +77,8 @@ enum ATTRIBUTES {
 }
 
 export {
-  ALL,
+  ADIABATIC_LAPSE_RATE_DATA,
+  ENVIRONMENTAL_LAPSE_RATE_DATA,
   ALTITUDE_TICKS,
   DEG2RAD,
   TANGENT,
